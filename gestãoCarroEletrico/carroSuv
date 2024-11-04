@@ -1,0 +1,11 @@
+package gestaoCarroEletrico;
+
+
+public class carroSuv extends carroEletrico {
+
+    public carroSuv(String id, String modelo, String marca, int anoFabricacao, double capacidadeBat) {
+
+        super(id, modelo, marca, anoFabricacao, capacidadeBat, 500);
+
+    }
+}
