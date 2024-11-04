@@ -1,0 +1,67 @@
+package gestaoCarroEletrico;
+
+public abstract class carroEletrico {
+
+    private String id;
+    private String modelo;
+    private String marca;
+    private int anoFabricacao;
+    private double bateria;
+    private double autonomiaMax;
+    private double autonomia;
+
+    public carroEletrico ( String id, String modelo, String marca, int anoFabricacao, double bateria, double autonomiaMax) {
+
+        this.id = id;
+        this.modelo = modelo;
+        this. marca = marca;
+        this.anoFabricacao = anoFabricacao;
+        this.autonomiaMax = autonomiaMax;
+        this.autonomia = autonomiaMax;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public double getBateria() {
+        return bateria;
+    }
+
+    public double getAutonomia() {
+        return autonomia;
+    }
+
+    public void dirigir(double distancia) {
+
+        if (distancia <= autonomia) {
+
+            autonomia -= distancia;
+
+        }  else {
+
+            System.out.println("A autonomia do carro [e menor que a distancia");
+
+        }
+    }
+
+    public void carregarBat(double recarga) {
+
+        double autonomiaGanha = recarga / bateria * autonomiaMax;
+        autonomia = Math.min(autonomia + autonomiaGanha, autonomiaMax);
+
+    }
+
+    public boolean manutencao() {
+
+        return autonomia < 0.2 * autonomiaMax;
+
+    }
+
+    public String toString() {
+
+        return marca + "" + modelo + ":" + anoFabricacao;
+
+        
+    }
+}
