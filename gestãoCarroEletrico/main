@@ -1,0 +1,37 @@
+package gestaoCarroEletrico;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class main {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        carroCompacto carro = new carroCompacto("01", "GTR", "Nissan", 2021, 40);
+        motorista motorista = new motorista("001", "João", "CNH123", "Avançado");
+
+        List<eletroPosto> Eletropostos = new ArrayList<>();
+        Eletropostos.add(new eletroPosto("01", "Cidade A", 2, 4, 100));
+        Eletropostos.add(new eletroPosto("02", "Cidade B", 3, 6, 300));
+        Eletropostos.add(new eletroPosto("03", "Cidade C", 2, 8, 450));
+
+        System.out.println("Sistema de Gestão de Frota de Carros Elétricos");
+
+        System.out.print("Digite a distância total da viagem (em km): ");
+        double distancia = scanner.nextDouble();
+
+        System.out.print("Digite o destino da viagem: ");
+        String destino = scanner.next();
+
+        viajar viagem = new viajar("V001", carro, motorista, distancia, destino, Eletropostos);
+        
+        viagem.iniciarViagem();
+        System.out.println("\nDados da Viagem:");
+        System.out.println(viagem.dadosViagem());
+        
+        scanner.close();
+    }
+}
