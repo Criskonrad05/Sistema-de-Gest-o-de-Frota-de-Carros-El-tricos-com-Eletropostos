@@ -1,0 +1,32 @@
+package gestaoCarroEletrico;
+
+import java.util.Date;
+
+public class recarga {
+    
+    private Date dataRecarga;
+    private double energia;
+    private eletroPosto eletroPosto;
+    private carroEletrico carro;
+
+    public recarga(Date dataRecarga, double energia, eletroPosto eletroPosto, carroEletrico carro) {
+
+        this.dataRecarga = dataRecarga;
+        this.energia = energia;
+        this.eletroPosto = eletroPosto;
+        this.carro = carro;
+
+    }
+
+    public void registroRecarga() {
+
+        carro.carregarBat(energia);
+
+    }
+
+    public String toString() {
+
+        return "Foi recarregado " + energia + "kwh no " + eletroPosto;
+        
+    }
+}
