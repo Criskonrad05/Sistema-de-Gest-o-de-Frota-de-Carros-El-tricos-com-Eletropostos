@@ -1,0 +1,24 @@
+package gestaoCarroEletrico;
+
+public class motorista {
+
+    private String idMotora;
+    private String nome;
+    private String habilitacao;
+    private String experiencia;
+    
+    public motorista(String idMotora, String nome, String habilitacao, String experiencia) {
+
+        this.idMotora = idMotora;
+        this.nome = nome;
+        this.habilitacao = habilitacao;
+        this.experiencia = experiencia;
+
+    }
+
+    public String toString() {
+        
+        return nome + ", Experiencia: " + experiencia;
+        
+    }
+}
