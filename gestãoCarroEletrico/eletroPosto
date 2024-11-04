@@ -1,0 +1,41 @@
+package gestaoCarroEletrico;
+
+public class eletroPosto {
+    
+    private String idPosto;
+    private String local;
+    private int vagas;
+    private double tempoRecarga;
+    private double distancia;
+
+    public eletroPosto( String idPosto, String local, int vagas, double tempoRecarga, double distancia) {
+
+        this.idPosto = idPosto;
+        this.local = local;
+        this.vagas = vagas;
+        this.tempoRecarga = tempoRecarga;
+        this.distancia = distancia;
+
+    }
+
+    public double getTempoRecarga() {
+        return tempoRecarga;
+    }
+
+    public double getDistancia() {
+        return distancia;
+    }
+
+    public boolean disponibilidade() {
+        
+        return vagas > 0;
+
+    }
+
+
+    public String toString() {
+
+        return "Eletroposto a " + local + "com " + vagas + " vagas ";
+
+    }
+}
