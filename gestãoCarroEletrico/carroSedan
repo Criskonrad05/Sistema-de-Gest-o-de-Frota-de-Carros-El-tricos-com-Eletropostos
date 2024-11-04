@@ -1,0 +1,10 @@
+package gestaoCarroEletrico;
+
+public class carroSedan extends carroEletrico {
+
+    public carroSedan(String id, String modelo, String marca, int anoFabricacao, double capacidadeBat) {
+
+        super(id, modelo, marca, anoFabricacao, capacidadeBat, 400);
+
+    }
+}
