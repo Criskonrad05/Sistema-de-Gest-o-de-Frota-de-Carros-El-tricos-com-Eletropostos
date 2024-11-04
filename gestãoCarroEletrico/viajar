@@ -1,0 +1,123 @@
+package gestaoCarroEletrico;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class viajar {
+
+    private String viagem;
+    private carroEletrico carro;
+    private motorista motorista;
+    private double distanciaPercorrida;
+    private String destino;
+    private List<eletroPosto> rotaEletropostos;
+    private List<eletroPosto> paradasRecarga;
+
+    public viajar(String idViagem, carroEletrico carro, motorista motorista, double distanciaPercorrida, String destino, List<eletroPosto> rotaEletropostos) {
+
+        this.viagem = idViagem;
+        this.carro = carro;
+        this.motorista = motorista;
+        this.distanciaPercorrida = distanciaPercorrida;
+        this.destino = destino;
+        this.rotaEletropostos = rotaEletropostos;
+        this.paradasRecarga = new ArrayList<>();
+
+    }
+
+    public void iniciarViagem() {
+
+        if (carro.getAutonomia() >= distanciaPercorrida) {
+
+            carro.dirigir(distanciaPercorrida);
+
+        } else {
+
+            System.out.println("Autonomia insuficiente. Planejando paradas para recarga...");
+            paradasRecarga();
+
+        }
+    }
+
+    private void paradasRecarga() {
+
+        double distanciaRestante = distanciaPercorrida;
+        double autonomiaAtual = carro.getAutonomia();
+
+        for (eletroPosto posto : rotaEletropostos) {
+
+            double distanciaAtePosto = posto.getDistancia(); 
+
+
+            if (autonomiaAtual >= distanciaAtePosto) {
+            
+                distanciaRestante -= distanciaAtePosto;
+                autonomiaAtual -= distanciaAtePosto;
+
+                if (distanciaRestante > autonomiaAtual) {
+
+                    paradasRecarga.add(posto);
+                    realizarRecarga(posto);
+                    autonomiaAtual = carro.getAutonomia(); 
+
+                }
+            } else {
+                
+                System.out.println("Autonomia insuficiente para continuar a viagem. Parada para recarga.");
+                break;
+            }
+
+            if (distanciaRestante <= 0) {
+                System.out.println("Viagem concluída com sucesso!");
+                break;
+            }
+        }
+
+        if (distanciaRestante > 0 && autonomiaAtual < distanciaRestante) {
+
+            System.out.println("Autonomia insuficiente para completar a viagem. Considerar rota alternativa.");
+
+        }
+    }
+
+    private void realizarRecarga(eletroPosto posto) {
+
+        double energiaNecessaria = carro.getBateria() - carro.getAutonomia();
+
+        if (posto.disponibilidade()) {
+
+            System.out.println("Recarga no " + posto + ". Energia adicionada: " + energiaNecessaria + " kWh.");
+            carro.carregarBat(energiaNecessaria);
+
+        } else {
+
+            System.out.println("Eletroposto " + posto + " esta cheio");
+
+        }
+    }
+
+    public String dadosViagem() {
+
+        StringBuilder dados = new StringBuilder();
+        dados.append("Viagem ID: ").append(viagem).append("\n")
+             .append("Destino: ").append(destino).append("\n")
+             .append("Motorista: ").append(motorista).append("\n")
+             .append("Carro: ").append(carro).append("\n")
+             .append("Distância: ").append(distanciaPercorrida).append(" km\n");
+
+        if (paradasRecarga.isEmpty()) {
+
+            dados.append("Nenhuma parada para recarga foi necessária.\n");
+
+        } else {
+
+            dados.append("Paradas para recarga:\n");
+            for (eletroPosto posto : paradasRecarga) {
+                dados.append("- ").append(posto).append("\n");
+            }
+            
+        }
+
+        return dados.toString();
+    }
+}
